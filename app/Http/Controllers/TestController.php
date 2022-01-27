@@ -24,6 +24,16 @@ class TestController extends Controller
         return view('mostrar',compact('notes'));
     }
 
+    public function delete($id)
+    {
+        $delete=$id[0];
+        DB::table('tbl_notes')->where('id', '=', $delete)->delete();
+        $notes=DB::select('select * from tbl_notes');
+        // return view('clientes.index', compact('clientes'));
+     
+        return response()->json($notes);
+     
+    }
 
     /**
      * Show the form for creating a new resource.
