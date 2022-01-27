@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Test;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TestController extends Controller
 {
@@ -16,6 +17,13 @@ class TestController extends Controller
     {
         //
     }
+
+    public function mostrar()
+    {
+        $notes = DB::select('select * from tbl_notes');
+        return view('mostrar',compact('notes'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -34,17 +42,6 @@ class TestController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Test  $test
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Test $test)
     {
         //
     }

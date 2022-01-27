@@ -1,0 +1,14 @@
+.crear {
+    width: 25%;
+    float: left;
+}
+
+.tabla {
+    width: 75%;
+    float: left;
+    display: block;
+}
+
+.table {
+    width: 100%;
+}
