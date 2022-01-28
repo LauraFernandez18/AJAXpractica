@@ -18,20 +18,30 @@ class TestController extends Controller
         //
     }
 
-    public function mostrar()
+    public function first()
     {
         $notes = DB::select('select * from tbl_notes');
         return view('mostrar',compact('notes'));
     }
 
-    public function delete($id)
+    public function mostrar()
     {
-        $delete=$id[0];
-        DB::table('tbl_notes')->where('id', '=', $delete)->delete();
         $notes=DB::select('select * from tbl_notes');
         // return view('clientes.index', compact('clientes'));
      
         return response()->json($notes);
+    }
+
+    public function delete($id)
+    {
+        DB::table('tbl_notes')->where('id', '=', $id)->delete();
+        try {
+            DB::table('tbl_notes')->where('id', '=', $id)->delete();
+            return response()->json(array('resultado'=> 'OK'));
+            } 
+        catch (\Throwable $th) {
+             return response()->json(array('resultado'=> 'NOK: '.$th->getMessage()));
+    }
      
     }
 

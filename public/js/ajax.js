@@ -16,7 +16,7 @@ function objetoAjax() {
 }
 
 /* Función para filtrar recursos implementada con AJAX */
-function filtro() {
+function refresh() {
     /* Obtener elemento html donde introduciremos la recarga (datos o mensajes) */
     var table = document.getElementById('table');
     /* 
@@ -88,6 +88,7 @@ function filtro() {
         */
     ajax.send(formData);
 }
+
 function eliminar(id) {
    /* Obtener elemento html donde introduciremos la recarga (datos o mensajes) */
 
@@ -115,23 +116,48 @@ function eliminar(id) {
    POST -> Sí envía parámetros
    true -> asynchronous
    */
-   ajax.open("POST", "clientes/" + id, true);
+   ajax.open("POST", "eliminar/" + id, true);
    ajax.onreadystatechange = function() {
            if (ajax.readyState == 4 && ajax.status == 200) {
                var respuesta = JSON.parse(this.responseText);
                if (respuesta.resultado == "OK") {
-                  message.innerHTML = 'El registro se a eliminado correctamente'
+                  console.log("Eliminado correctamente")
                    /* creación de estructura: la estructura que creamos no ha de contener código php ni código blade*/
                    /* utilizamos innerHTML para introduciremos la recarga en el elemento html pertinente */
                } else {
                    /* creación de estructura: la estructura que creamos no ha de contener código php ni código blade*/
                    /* utilizamos innerHTML para introduciremos la recarga en el elemento html pertinente */
                }
-               filtro();
+               refresh();
            }
        }
        /*
        send(string)->Sends the request to the server (used for POST)
        */
    ajax.send(formData);
+}
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    var modal = document.getElementById("myModal");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+function openModal(id, titulo, descripcion) {
+    document.getElementById("titulo").value = titulo;
+    document.getElementById("descripcion").value = descripcion;
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
 }
